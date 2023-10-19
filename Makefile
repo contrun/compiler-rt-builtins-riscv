@@ -1,10 +1,10 @@
 
 
-CC := clang-16
-LD := ld.lld-16
-OBJCOPY := llvm-objcopy-16
-AR := llvm-ar-16
-RANLIB := llvm-ranlib-16
+CC ?= clang-16
+LD ?= ld.lld-16
+OBJCOPY ?= llvm-objcopy-16
+AR ?= llvm-ar-16
+RANLIB ?= llvm-ranlib-16
 
 UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)
@@ -179,6 +179,7 @@ build/libcompiler-rt.a: $(RT_OBJ) $(RISCV_OBJ)
 
 build/%.o: compiler-rt/lib/builtins/%.c
 	@echo build $<
+	@echo $(CC) $(CFLAGS) -c -o $@ $<
 	@$(CC) $(CFLAGS) -c -o $@ $<
 
 build/%.o: compiler-rt/lib/builtins/riscv/*.c
